@@ -1,3 +1,4 @@
+const router = require('express').Router();
 function getRandomArbitrary(max) {
     return Math.round(Math.random() * max);
   }
