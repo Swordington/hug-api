@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const axios = require('axios').default;
+const xmlParser = require('xml2json');
 
 function getRandomArbitrary(max) {
     return Math.round(Math.random() * max);
