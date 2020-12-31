@@ -24,6 +24,7 @@ router.route('/').get((req, res) => {
 
     }).catch(function (error) {
         console.error(error);
+        res.sendStatus(500);
     });
 
 });
