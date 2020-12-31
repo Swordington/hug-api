@@ -21,20 +21,32 @@
  * 
  */
 
+ // Require our dependancies
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const rateLimit = require("express-rate-limit");
 
+// Setup the Expressjs app & port
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080; // Rever to .example.env for an example
 
-app.use(cors());
-app.use(express.json());
+// Rate Limiting
+const rateLimiter = rateLimit({
+  windowMs: 300000, // 5 minutes
+  max: 100 // limit each IP to 100 requests per 5 minutes
+});
 
+
+app.use(cors());// This tells the express app to allow Cross-origin resource sharing (which lets the API function)
+app.use(express.json()); // This lets the express app know that all responses and requests should be in a JSON format
+app.use(rateLimiter) // This tells the express app how to handle rate limiting, as setup above
+
+// Require & use our hug router, which handles the actual API call
 const hugRouter = require('./hug.router');
-
 app.use('/', hugRouter);
 
+// Start up the express app
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
   });
