@@ -26,8 +26,9 @@ router.route('/').get((req, res) => {
         filename: hug.Key,
         size: hug.Size
         }
+        const IP = res.req.ip.substr(7)
         // Let us know that a hug has been sent out, which is very useful for knowning the activity level of the API.
-        console.log(`A hug has been sent out to ${res.req.ip}`);
+        console.log(`A hug has been sent out to ${IP}`);
         // Send back the gif and related information
         res.status(200).json(stagedResponse);
 
